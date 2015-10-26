@@ -30,7 +30,12 @@ This homework requires
 
 Google Test Framework 
 ----------------------
-installation::
+1. installation::
 
    [archlinux]
    pacman -S community/gtest
+
+2. usage
+
+   A. ``include "gtest/gtest.h"``
+   B. linker option: ``-lgtest``
