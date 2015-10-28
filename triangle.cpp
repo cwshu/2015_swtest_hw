@@ -9,7 +9,6 @@ enum TriangleType {
     TRI_EQUILATERAL,
     TRI_ISOSCELES,
     TRI_SCALENE,
-    TRI_RIGHT,
 };
 
 // 0 < a, b, c < 200 and a < b+c and b < a+c and c < a+b
@@ -30,8 +29,6 @@ void example_usage(){
         std::cout << "(" << a << "," << b << "," << c << ") is an isosceles triangle." << std::endl;
     else if( check_triangle_type(a, b, c) == TRI_SCALENE )
         std::cout << "(" << a << "," << b << "," << c << ") is a scalene triangle." << std::endl;
-    else if( check_triangle_type(a, b, c) == TRI_RIGHT )
-        std::cout << "(" << a << "," << b << "," << c << ") is a right triangle." << std::endl;
     return;
 }
 
@@ -52,7 +49,6 @@ TEST(CheckTriangleTypeTest, SideLength1to199){
     EXPECT_EQ(TRI_EQUILATERAL, check_triangle_type(110, 110, 110));
     EXPECT_EQ(TRI_ISOSCELES, check_triangle_type(150, 150, 110));
     EXPECT_EQ(TRI_SCALENE, check_triangle_type(110, 113, 116));
-    EXPECT_EQ(TRI_RIGHT, check_triangle_type(75, 100, 125));
 
     // one boundary and others normal
     EXPECT_EQ(TRI_ISOSCELES, check_triangle_type(1, 110, 110));
