@@ -16,30 +16,30 @@ TriangleType check_triangle_type(int a, int b, int c){
     return TRI_INVALID;
 }
 
-int main(int argc, char *argv[]){
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-    /*
+void example_usage(){
     int a, b, c;
     std::cout << "Please input 3 sides length of triangle, every length should be integer:";
     std::cin >> a >> b >> c;
 
     if( check_triangle_type(a, b, c) == TRI_INVALID )
-        cout << "(" << a << "," << b << "," << c << ") is not a triangle." << std::endl;
+        std::cout << "(" << a << "," << b << "," << c << ") is not a triangle." << std::endl;
     else if( check_triangle_type(a, b, c) == TRI_EQUILATERAL )
-        cout << "(" << a << "," << b << "," << c << ") is an equilateral triangle." << std::endl;
+        std::cout << "(" << a << "," << b << "," << c << ") is an equilateral triangle." << std::endl;
     else if( check_triangle_type(a, b, c) == TRI_ISOSCELES )
-        cout << "(" << a << "," << b << "," << c << ") is an isosceles triangle." << std::endl;
+        std::cout << "(" << a << "," << b << "," << c << ") is an isosceles triangle." << std::endl;
     else if( check_triangle_type(a, b, c) == TRI_SCALENE )
-        cout << "(" << a << "," << b << "," << c << ") is a scalene triangle." << std::endl;
+        std::cout << "(" << a << "," << b << "," << c << ") is a scalene triangle." << std::endl;
     else if( check_triangle_type(a, b, c) == TRI_RIGHT )
-        cout << "(" << a << "," << b << "," << c << ") is a right triangle." << std::endl;
-    return 0;
-    */
+        std::cout << "(" << a << "," << b << "," << c << ") is a right triangle." << std::endl;
+    return;
 }
 
 // triangle boundary value of 0 ~ 200: {0, 1, 2, 100, 198, 199, 200}
 // triangle boundary value of a < b+c, b < a+c, c < a+b: { a = b+c, a = b+c-1, a = b+c-2, a < b+c }
+int main(int argc, char *argv[]){
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
 TEST(CheckTriangleTypeTest, SideLength1to199){
     // all normal
     EXPECT_EQ(TRI_EQUILATERAL, check_triangle_type(100, 100, 100));
