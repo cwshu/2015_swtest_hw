@@ -39,7 +39,47 @@ const Date DATE_INVALID = {0, 0, 0};
 // 1 <= month <= 12
 // 1 <= day <= 31
 Date nextdate(int year, int month, int day){
-    return DATE_INVALID;
+    if( year < 1812 || year > 2012 )
+        return DATE_INVALID;
+    if( month < 1 || month > 12 )
+        return DATE_INVALID;
+    if( day < 1 || day > 31 )
+        return DATE_INVALID;
+
+    int days_per_month = 0;
+    switch( month ){
+        case 1: case 3: case 5: case 7: 
+        case 8: case 10: case 12:
+            days_per_month = 31;
+            break;
+        case 4: case 6: case 9: case 11: 
+            days_per_month = 30;
+            break;
+        // 28 or 29 days
+        case 2:
+            if( year%4 != 0 )
+                days_per_month = 28;
+            else if( year%100 != 0 )
+                days_per_month = 29;
+            else if( year%400 != 0 )
+                days_per_month = 28;
+            else
+                // year%400 == 0
+                days_per_month = 29;
+            break;
+    }
+
+    if( day <= days_per_month-1 ){
+        return Date(year, month, day+1);
+    }
+    else if( day == days_per_month ){
+        if( month != 12 )
+            return Date(year, month+1, 1);
+        return Date(year+1, 1, 1);
+    }
+    else{
+        return DATE_INVALID;
+    }
 }
 
 void example_usage(){
