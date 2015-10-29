@@ -4,36 +4,7 @@
 
 #include <gtest/gtest.h>
 
-// Date(0, 0, 0) for error
-struct Date {
-    int year;
-    int month;
-    int day;
-
-    Date(){
-        this->year = 0;
-        this->month = 0;
-        this->day = 0;
-    }
-
-    Date(int year, int month, int day){
-        this->year = year;
-        this->month = month;
-        this->day = day;
-    }
-
-    bool operator== (const Date& rhs) const {
-        if( this->year != rhs.year )
-            return false;
-        if( this->month != rhs.month )
-            return false;
-        if( this->day != rhs.day )
-            return false;
-
-        return true;
-    }
-};
-const Date DATE_INVALID = {0, 0, 0};
+#include "nextdate.h"
 
 // 1812 <= year <= 2012
 // 1 <= month <= 12
@@ -82,6 +53,8 @@ Date nextdate(int year, int month, int day){
     }
 }
 
+#ifdef __USAGE_TEST__
+
 void example_usage(){
     int year, month, day;
     std::cout << "Please input 3 integer for (year, month, day), year should be between 1812 to 2012:" << std::endl;
@@ -95,6 +68,14 @@ void example_usage(){
         printf("Tomorrow's date is %04d/%02d/%02d", Tomorrow.year, Tomorrow.month, Tomorrow.day);
     }
 }
+
+int main(int argc, char *argv[]){
+    example_usage();
+}
+
+#endif
+
+#ifdef __UNIT_TEST__
 
 int main(int argc, char *argv[]){
     ::testing::InitGoogleTest(&argc, argv);
@@ -173,3 +154,5 @@ TEST(NextdateTest, robust){
         }
     }
 }
+
+#endif

@@ -39,3 +39,20 @@ Google Test Framework
 
    A. ``include "gtest/gtest.h"``
    B. linker option: ``-lgtest``
+
+How to run this hw
+------------------
+1. install google test framework, see above.
+2. build it
+
+   A. if you want to do unittest::
+   
+       make
+
+   B. if you want to test functionality::
+      
+       make example_use
+
+3. run it::
+   
+   make run

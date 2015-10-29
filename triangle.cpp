@@ -2,14 +2,7 @@
 
 #include <gtest/gtest.h>
 
-enum TriangleType {
-    // invalid
-    TRI_INVALID,
-    // valid
-    TRI_EQUILATERAL,
-    TRI_ISOSCELES,
-    TRI_SCALENE,
-};
+#include "triangle.h"
 
 // 0 < a, b, c < 200 and a < b+c and b < a+c and c < a+b
 TriangleType check_triangle_type(int a, int b, int c){
@@ -43,11 +36,13 @@ TriangleType check_triangle_type(int a, int b, int c){
     return TRI_SCALENE;
 }
 
+#ifdef __USAGE_TEST__
+
 void example_usage(){
     int a, b, c;
     std::cout << "Please input 3 sides length of triangle, every length should be integer:";
     std::cin >> a >> b >> c;
-
+    
     if( check_triangle_type(a, b, c) == TRI_INVALID )
         std::cout << "(" << a << "," << b << "," << c << ") is not a triangle." << std::endl;
     else if( check_triangle_type(a, b, c) == TRI_EQUILATERAL )
@@ -60,10 +55,19 @@ void example_usage(){
 }
 
 int main(int argc, char *argv[]){
+    example_usage();
+}
+
+#endif
+
+#ifdef __UNIT_TEST__
+
+int main(int argc, char *argv[]){
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
 
+/* Testing Code */
 // Weak Robust test for check_triangle_type()
 // SideLength1to199
 // SideLength0or200
@@ -125,3 +129,5 @@ TEST(CheckTriangleTypeTest, SideLengthTriInequalityRobust){
     EXPECT_EQ(TRI_INVALID, check_triangle_type(50, 100, 50));
     EXPECT_EQ(TRI_INVALID, check_triangle_type(50, 50, 100));
 }
+
+#endif
