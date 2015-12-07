@@ -16,8 +16,8 @@ unittest: build
 example_use: CXXFLAGS += -D__USAGE_TEST__
 example_use: build
 
-%.out: %.cpp
-	$(CXX) -o $@ $(CXXFLAGS) $(LDFLAGS) $<
+%.out: %.cpp %_test.cpp
+	$(CXX) -o $@ $(CXXFLAGS) $(LDFLAGS) $^
 
 clean:
 	rm -f *.out
