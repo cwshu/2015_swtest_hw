@@ -1,0 +1,147 @@
+        -:    0:Source:nextdate.cpp
+        -:    0:Graph:nextdate.gcno
+        -:    0:Data:nextdate.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <iostream>
+        -:    2:#include <cstdio>
+        -:    3:#include <vector>
+        -:    4:
+        -:    5:#include <gtest/gtest.h>
+        -:    6:
+        -:    7:#include "nextdate.h"
+        -:    8:
+        -:    9:// 1812 <= year <= 2012
+        -:   10:// 1 <= month <= 12
+        -:   11:// 1 <= day <= 31
+function _Z8nextdateiii called 180 returned 100% blocks executed 100%
+        -:   12:Date nextdate(int year, int month, int day){
+      180:   13:    if( year < 1812 || year > 2012 )
+      180:   13-block  0
+branch  0 taken 83%
+branch  1 taken 17%
+      150:   13-block  1
+branch  2 taken 20%
+branch  3 taken 80%
+       60:   14:        return DATE_INVALID;
+       60:   14-block  0
+      120:   15:    if( month < 1 || month > 12 )
+      120:   15-block  0
+branch  0 taken 80%
+branch  1 taken 20%
+       96:   15-block  1
+branch  2 taken 25%
+branch  3 taken 75%
+       48:   16:        return DATE_INVALID;
+       48:   16-block  0
+       72:   17:    if( day < 1 || day > 31 )
+       72:   17-block  0
+branch  0 taken 83%
+branch  1 taken 17%
+       60:   17-block  1
+branch  2 taken 20%
+branch  3 taken 80%
+       24:   18:        return DATE_INVALID;
+       24:   18-block  0
+        -:   19:
+       96:   20:    int days_per_month = 0;
+       96:   21:    switch( month ){
+       96:   21-block  0
+branch  0 taken 0%
+branch  1 taken 0%
+branch  2 taken 0%
+branch  3 taken 0%
+branch  4 taken 0%
+branch  5 taken 0%
+branch  6 taken 17%
+branch  7 taken 0%
+branch  8 taken 0%
+branch  9 taken 0%
+branch 10 taken 17%
+branch 11 taken 17%
+branch 12 taken 50%
+        -:   22:        case 1: case 3: case 5: case 7: 
+        -:   23:        case 8: case 10: case 12:
+       16:   24:            days_per_month = 31;
+       16:   25:            break;
+       16:   25-block  0
+        -:   26:        case 4: case 6: case 9: case 11: 
+       16:   27:            days_per_month = 30;
+       16:   28:            break;
+       16:   28-block  0
+        -:   29:        // 28 or 29 days
+        -:   30:        case 2:
+       16:   31:            if( year%4 != 0 )
+       16:   31-block  0
+branch  0 taken 25%
+branch  1 taken 75%
+        4:   32:                days_per_month = 28;
+        4:   32-block  0
+       12:   33:            else if( year%100 != 0 )
+       12:   33-block  0
+branch  0 taken 33%
+branch  1 taken 67%
+        4:   34:                days_per_month = 29;
+        4:   34-block  0
+        8:   35:            else if( year%400 != 0 )
+        8:   35-block  0
+branch  0 taken 50%
+branch  1 taken 50%
+        4:   36:                days_per_month = 28;
+        4:   36-block  0
+        -:   37:            else
+        -:   38:                // year%400 == 0
+        4:   39:                days_per_month = 29;
+        4:   39-block  0
+       16:   40:            break;
+       16:   40-block  0
+        -:   41:    }
+        -:   42:
+       48:   43:    if( day <= days_per_month-1 ){
+       48:   43-block  0
+branch  0 taken 50%
+branch  1 taken 50%
+       24:   44:        return Date(year, month, day+1);
+       24:   44-block  0
+        -:   45:    }
+       24:   46:    else if( day == days_per_month ){
+       24:   46-block  0
+branch  0 taken 42%
+branch  1 taken 58%
+       10:   47:        if( month != 12 )
+       10:   47-block  0
+branch  0 taken 60%
+branch  1 taken 40%
+        6:   48:            return Date(year, month+1, 1);
+        6:   48-block  0
+        4:   49:        return Date(year+1, 1, 1);
+        4:   49-block  0
+        -:   50:    }
+        -:   51:    else{
+       14:   52:        return DATE_INVALID;
+       14:   52-block  0
+        -:   53:    }
+      180:   54:}
+      180:   54-block  0
+        -:   55:
+        -:   56:#ifdef __USAGE_TEST__
+        -:   57:
+        -:   58:void example_usage(){
+        -:   59:    int year, month, day;
+        -:   60:    std::cout << "Please input 3 integer for (year, month, day), year should be between 1812 to 2012:" << std::endl;
+        -:   61:    std::cin >> year >> month >> day;
+        -:   62:   
+        -:   63:    Date Tomorrow = nextdate(year, month, day);
+        -:   64:    if( Tomorrow == DATE_INVALID ){
+        -:   65:        printf("%04d/%02d/%02d is invalid date.", year, month, day);
+        -:   66:    }
+        -:   67:    else{
+        -:   68:        printf("Tomorrow's date is %04d/%02d/%02d", Tomorrow.year, Tomorrow.month, Tomorrow.day);
+        -:   69:    }
+        -:   70:}
+        -:   71:
+        -:   72:int main(int argc, char *argv[]){
+        -:   73:    example_usage();
+        -:   74:}
+        -:   75:
+        -:   76:#endif

@@ -1,0 +1,121 @@
+        -:    0:Source:triangle.cpp
+        -:    0:Graph:triangle.gcno
+        -:    0:Data:triangle.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <iostream>
+        -:    2:
+        -:    3:#include "triangle.h"
+        -:    4:
+        -:    5:// 0 < a, b, c < 200 and a < b+c and b < a+c and c < a+b
+function _Z19check_triangle_typeiii called 33 returned 100% blocks executed 100%
+        -:    6:TriangleType check_triangle_type(int a, int b, int c){
+       33:    7:    if( a <= 0 || a >= 200 )
+       33:    7-block  0
+branch  0 taken 32
+branch  1 taken 1
+       32:    7-block  1
+branch  2 taken 1
+branch  3 taken 31
+        2:    8:        return TRI_INVALID;
+        2:    8-block  0
+       31:    9:    if( b <= 0 || b >= 200 )
+       31:    9-block  0
+branch  0 taken 30
+branch  1 taken 1
+       30:    9-block  1
+branch  2 taken 1
+branch  3 taken 29
+        2:   10:        return TRI_INVALID;
+        2:   10-block  0
+       29:   11:    if( c <= 0 || c >= 200 )
+       29:   11-block  0
+branch  0 taken 28
+branch  1 taken 1
+       28:   11-block  1
+branch  2 taken 1
+branch  3 taken 27
+        2:   12:        return TRI_INVALID;
+        2:   12-block  0
+        -:   13:    
+       27:   14:    if( a >= b+c )
+       27:   14-block  0
+branch  0 taken 1
+branch  1 taken 26
+        1:   15:        return TRI_INVALID;
+        1:   15-block  0
+       26:   16:    if( b >= a+c )
+       26:   16-block  0
+branch  0 taken 1
+branch  1 taken 25
+        1:   17:        return TRI_INVALID;
+        1:   17-block  0
+       25:   18:    if( c >= a+b )
+       25:   18-block  0
+branch  0 taken 1
+branch  1 taken 24
+        1:   19:        return TRI_INVALID;
+        1:   19-block  0
+        -:   20:
+       24:   21:    int side_equal = 0;
+       24:   22:    if( a == b )
+       24:   22-block  0
+branch  0 taken 6
+branch  1 taken 18
+        6:   23:        side_equal += 1;
+        6:   23-block  0
+       24:   24:    if( b == c )
+       24:   24-block  0
+branch  0 taken 5
+branch  1 taken 19
+        5:   25:        side_equal += 1;
+        5:   25-block  0
+       24:   26:    if( a == c )
+       24:   26-block  0
+branch  0 taken 5
+branch  1 taken 19
+        5:   27:        side_equal += 1;
+        5:   27-block  0
+        -:   28:
+       24:   29:    if( side_equal == 3 )
+       24:   29-block  0
+branch  0 taken 1
+branch  1 taken 23
+        1:   30:        return TRI_EQUILATERAL;
+        1:   30-block  0
+       23:   31:    if( side_equal == 1 )
+       23:   31-block  0
+branch  0 taken 13
+branch  1 taken 10
+       13:   32:        return TRI_ISOSCELES;
+       13:   32-block  0
+        -:   33:
+       10:   34:    return TRI_SCALENE;
+       10:   34-block  0
+       33:   35:}
+       33:   35-block  0
+        -:   36:
+        -:   37:#ifdef __USAGE_TEST__
+        -:   38:
+        -:   39:void example_usage(){
+        -:   40:    int a, b, c;
+        -:   41:    std::cout << "Please input 3 sides length of triangle, every length should be integer:";
+        -:   42:    std::cin >> a >> b >> c;
+        -:   43:    
+        -:   44:    if( check_triangle_type(a, b, c) == TRI_INVALID )
+        -:   45:        std::cout << "(" << a << "," << b << "," << c << ") is not a triangle." << std::endl;
+        -:   46:    else if( check_triangle_type(a, b, c) == TRI_EQUILATERAL )
+        -:   47:        std::cout << "(" << a << "," << b << "," << c << ") is an equilateral triangle." << std::endl;
+        -:   48:    else if( check_triangle_type(a, b, c) == TRI_ISOSCELES )
+        -:   49:        std::cout << "(" << a << "," << b << "," << c << ") is an isosceles triangle." << std::endl;
+        -:   50:    else if( check_triangle_type(a, b, c) == TRI_SCALENE )
+        -:   51:        std::cout << "(" << a << "," << b << "," << c << ") is a scalene triangle." << std::endl;
+        -:   52:    return;
+        -:   53:}
+        -:   54:
+        -:   55:int main(int argc, char *argv[]){
+        -:   56:    example_usage();
+        -:   57:}
+        -:   58:
+        -:   59:#endif
+        -:   60:
